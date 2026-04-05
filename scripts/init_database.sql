@@ -1,26 +1,38 @@
 /*
-  ============================================================
-   CREATE DATABASE AND SCHEMAS
-  ============================================================
-  Script purpose: 
-                 This Script creates a new database named 'DataWarehouse' after checking if its already exists.
-                 If the database exists, it is dropped and recreated. Additionally the script sets up three schemas within the database : 'bronze','silver'.'gold'.
-                 
-                 
- */
+============================================================
+INIT DATABASE
+============================================================
+Script purpose:
+This script is used to initialize the PostgreSQL data warehouse
+environment in DBeaver.
 
-select datname
-from pg_database
-where datname = 'datawarehouse';
+It first checks whether a database named 'datawarehouse' already
+exists in the PostgreSQL server.
 
--- Crearting a DataWarehouse Database
-create database datawarehouse;
+If the database does not exist, it can be created separately.
+Schema creation should be executed only after connecting to the
+'datawarehouse' database.
 
--- Creating Schemas for different layers
+Environment:
+- Database Engine : PostgreSQL
+- SQL Client      : DBeaver
 
-create schema bronze;
-create schema silver;
-create schema gold;
+Notes:
+- PostgreSQL does not support the SQL Server command USE.
+- CREATE DATABASE must be run separately and not inside a
+  transaction block.
+- Schemas such as bronze, silver, and gold should be created
+  only after connecting to the target database.
+============================================================
+*/
 
--- Debug: ensure we are connected to correct database
---select current_database();
+-- Check whether the target database already exists
+SELECT datname
+FROM pg_database
+WHERE datname = 'datawarehouse';
+
+-- Create the data warehouse database
+CREATE DATABASE datawarehouse;
+
+-- Debug: verify the currently connected database
+-- SELECT current_database();
