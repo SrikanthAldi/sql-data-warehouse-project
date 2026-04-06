@@ -15,12 +15,6 @@ bronze schema for PostgreSQL.
  -----------------------------------------------------------
  */
 
-/*
-    if you want to drop table before creating a new table if its already exists 
-    then do this
-    DROP TABLE IF EXISTS <TABLE-NAME>;
-    CREATE TABLE <TABLE-NAME>
- */
 CREATE TABLE IF NOT EXISTS bronze.cust_info (
     cst_id INT,
     cst_key VARCHAR(50),
@@ -31,6 +25,10 @@ CREATE TABLE IF NOT EXISTS bronze.cust_info (
     cst_create_date DATE
 );
 
+TRUNCATE TABLE  bronze.cust_info;
+
+
+
 CREATE TABLE IF NOT EXISTS bronze.prd_info (
     prd_id INT,
     prd_key VARCHAR(50),
@@ -40,6 +38,9 @@ CREATE TABLE IF NOT EXISTS bronze.prd_info (
     prd_start_dt DATE,
     prd_end_dt DATE
 );
+
+TRUNCATE TABLE  bronze.prd_info;
+
 
 CREATE TABLE IF NOT EXISTS bronze.sales_details (
     sls_ord_num VARCHAR(50),
@@ -53,12 +54,13 @@ CREATE TABLE IF NOT EXISTS bronze.sales_details (
     sls_price INT
   );
 
+TRUNCATE TABLE  bronze.sales_details;
 /*
  -----------------------------------------------------------
  ->SOURCE SYSTEM 2: source_erp
  -----------------------------------------------------------
  */
-DROP TABLE IF EXISTS bronze.cust_az12;
+
 
 CREATE TABLE bronze.cust_az12 (
     cid VARCHAR(50),
@@ -66,14 +68,20 @@ CREATE TABLE bronze.cust_az12 (
     gen VARCHAR(50)
 );
 
+TRUNCATE TABLE  bronze.cust_az12;
+
+
 CREATE TABLE IF NOT EXISTS bronze.px_cat_g1v2(
     id VARCHAR(50),
     cat VARCHAR(50),
     subcat VARCHAR(100),
     maintenance VARCHAR(50)
 );
+TRUNCATE TABLE  bronze.px_cat_g1v2;
+
 
 CREATE TABLE IF NOT EXISTS bronze.sales_details_src2 (
     cid VARCHAR(100),
     country VARCHAR(100)
   );
+TRUNCATE TABLE  bronze.sales_details_src2;
